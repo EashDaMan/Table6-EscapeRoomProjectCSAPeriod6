@@ -37,7 +37,7 @@ import java.util.Scanner;
                     valid = true;
             }
             if(!valid)
-                System.out.print("Invalid input. Please try again\n>");
+                System.out.print("\nInvalid input. Please try again\n --> ");
         }
         while(!valid);
         return input;

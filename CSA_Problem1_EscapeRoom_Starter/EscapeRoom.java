@@ -65,10 +65,17 @@ public class EscapeRoom
     boolean play = true;
     while (play)
     {
-      /* TODO: get all the commands working */
-	  /* Your code here */
-    
-      
+     /* TODO: get all the commands working */
+
+     // Get User Input
+     System.out.print("What do you want to do? \n ---> ");
+     String action = UserInput.getValidInput(validCommands);
+
+	   // Right movement
+     /*if ( action == "right" || action == "r"){
+     game.movePlayer(60,0);
+     }*/
+
     }
 
   
