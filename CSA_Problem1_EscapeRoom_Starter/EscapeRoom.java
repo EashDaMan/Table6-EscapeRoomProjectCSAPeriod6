@@ -72,10 +72,24 @@ public class EscapeRoom
      String action = UserInput.getValidInput(validCommands);
 
 	   // Right movement
-     /*if ( action == "right" || action == "r"){
-     game.movePlayer(60,0);
-     }*/
+     if ( action .equals("right")  || action .equals("r")){
+      game.movePlayer(m,0);
+     }
 
+     // Left movement
+     if ( action .equals("left")  || action .equals("l")){
+      game.movePlayer(-m,0);
+     }
+
+     // Up movement
+     if ( action .equals("up")  || action .equals("u")){
+      game.movePlayer(0,-m);
+     }
+
+      // Down movement
+     if ( action .equals("down")  || action .equals("d")){
+      game.movePlayer(0,m);
+     }
     }
 
   
