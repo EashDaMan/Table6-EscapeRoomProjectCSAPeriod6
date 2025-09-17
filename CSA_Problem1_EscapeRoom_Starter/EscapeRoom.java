@@ -1,7 +1,7 @@
 /*
 * Problem 1: Escape Room
 * 
-* V1.0
+* V1.04
 * 10/10/2019
 * Copyright(c) 2019 PLTW to present. All rights reserved
 */
@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class EscapeRoom
 {
 
-      // describe the game with brief welcome message
+      // Brief Welcome Message
       // determine the size (length and width) a player must move to stay within the grid markings
       // Allow game commands:
       //    right, left, up, down: if you try to go off grid or bump into wall, score decreases
@@ -90,15 +90,66 @@ public class EscapeRoom
      if ( action .equals("down")  || action .equals("d")){
       game.movePlayer(0,m);
      }
+
+     if (action.equals("jump") || action.equals("jump right")||action .equals("jr")|| action .equals("jump")){
+      game.movePlayer(2*m,0 );
+     }
+     if(action.equals("jump left")|| action.equals("jl") || action.equals("jumpleft")){
+      game.movePlayer(-2*m,0);
+     }
+      if(action.equals("jump up")|| action.equals("ju") || action.equals("jumpup")){
+        game.movePlayer(0,-2*m);
+      }
+      if(action.equals("jump down")|| action.equals("jd") || action.equals("jumpdown")){
+        game.movePlayer(0,2*m);
+      }
+      if(action.equals("pickup") || action.equals("p")){
+        
+      } 
+      if(action.equals("help") || action.equals("?")){
+        System.out.println("\n\nHere are the valid commands:");
+        System.out.println("right or r: move right");
+        System.out.println("left or l: move left");
+        System.out.println("up or u: move up");
+        System.out.println("down or d: move down");
+        System.out.println("jump right or jr: jump right over one space");
+        System.out.println("jump left or jl: jump left over one space");
+        System.out.println("jump up or ju: jump up over one space");
+        System.out.println("jump down or jd: jump down over one space");
+        System.out.println("pickup or p: pick up a prize if there is one");
+        System.out.println("quit or q: end the game immediately");
+        System.out.println("replay: reset the game to play again");
+        System.out.println("help or ?: show this help message\n\n");
+      }
+      if(action.equals("quit") || action.equals("q")){
+        play = false;
+      }
+      if(action.equals("replay")){
+        game.replay();
+        System.out.println("\nYour Score: " + score);
+        System.out.println("Your Steps: " + game.getSteps());
+        System.out.println("\nLets Restart!");
+        System.out.println("\n--Score is reset--");
+        score = 0;       
+      }
+  
     }
+  
 
   
 
     score += game.endGame();
 
-    System.out.println("score=" + score);
-    System.out.println("steps=" + game.getSteps());
+    System.out.println("\nYour Score:" + score);
+    System.out.println("You Took " + game.getSteps()+ " Steps!");
+     if(game.getSteps()>= 23){
+      System.out.println("That was a bunch of steps you're very athletic!");
+      } else {
+      System.out.println("That was very few steps, quitter!");
+    }
+    System.out.println("Thanks for playing!"); 
+    }
   }
-}
+
 
         
