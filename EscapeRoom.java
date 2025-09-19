@@ -28,10 +28,15 @@ public class EscapeRoom
       // Note that you must adjust the score with any method that returns a score
       // Optional: create a custom image for your player use the file player.png on disk
     
-    
+      /**** provided code:
       // set up the game
-      // (removed invalid while loop outside of methods)
-      
+      boolean play = true;
+      while (play)
+      {
+        // get user input and call game methods to play 
+        play = false;
+      }
+      */
 
   public static void main(String[] args) 
   {      
@@ -60,58 +65,19 @@ public class EscapeRoom
     boolean play = true;
     while (play)
     {
-     /* TODO: get all the commands working */
-
-     // Get User Input
-     System.out.print("What do you want to do? \n ---> ");
-     String action = UserInput.getValidInput(validCommands);
-
-	   // Right movement
-     if ( action.equals("right") || action.equals("r")){
-     game.movePlayer(m,0);
-     }
-
-     if ( action.equals("left") || action.equals("l")){
-     game.movePlayer(-m,0);
-
-    }
-    if (action.equals("up") || action.equals("u")){
-     game.movePlayer(0,-m);
+      /* TODO: get all the commands working */
+	  /* Your code here */
+    
+      
     }
 
-    if (action.equals("down") || action.equals("d")){
-     game.movePlayer(0,m);
-    }
-    if (action.equals("jump") || action.equals("jr")){
-     game.movePlayer(2*m,0);
-    }
-    if (action.equals("jumpleft") || action.equals("jl")){
-     game.movePlayer(-2*m,0);
-    }
-    if (action.equals("jumpup") || action.equals("ju")){
-     game.movePlayer(0,-2*m);
-    }
-    if (action.equals("jumpdown") || action.equals("jd")){
-     game.movePlayer(0,2*m);
-    }
-    if (action.equals("pickup") || action.equals("p")){
-     score += game.pickUpPrize();
-    }
-    if (action.equals("help") || action.equals("?")){
-     System.out.println("Valid commands are: \nright(r), left(l), up(u), down(d), \njump(jr, jl, ju, jd), pickup(p), quit(q), replay, help(?)");
-    }
-    if (action.equals("quit") || action.equals("q")){
-      play = false;
+  
+
     score += game.endGame();
 
     System.out.println("score=" + score);
     System.out.println("steps=" + game.getSteps());
   }
-  if (action.equals("replay")){
-      score = 0;
-      game.resetBoard();
-    }
-   } // end while play
-   in.close();
-  } // end main
 }
+
+        
