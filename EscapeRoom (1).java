@@ -1,0 +1,198 @@
+/*
+* Problem 1: Escape Room
+* 
+* V1.04
+* 10/10/2019
+* Copyright(c) 2019 PLTW to present. All rights reserved
+*/
+import java.util.Scanner;
+
+/**
+ * Create an escape room game where the player must navigate
+ * to the other side of the screen in the fewest steps, while
+ * avoiding obstacles and collecting prizes.
+ */
+public class EscapeRoom
+{
+
+      // Brief Welcome Message
+      // determine the size (length and width) a player must move to stay within the grid markings
+      // Allow game commands:
+      //    right, left, up, down: if you try to go off grid or bump into wall, score decreases
+      //    jump over 1 space: you cannot jump over walls
+      //    if you land on a trap, spring a trap to increase score: you must first check if there is a trap, if none exists, penalty
+      //    pick up prize: score increases, if there is no prize, penalty
+      //    help: display all possible commands
+      //    end: reach the far right wall, score increase, game ends, if game ended without reaching far right wall, penalty
+      //    replay: shows number of player steps and resets the board, you or another player can play the same board
+      // Note that you must adjust the score with any method that returns a score
+      // Optional: create a custom image for your player use the file player.png on disk
+    
+      /**** provided code:
+      // set up the game
+      boolean play = true;
+      while (play)
+      {
+        // get user input and call game methods to play 
+        play = false;
+      }
+      */
+
+  public static void main(String[] args) 
+  {      
+    // welcome message
+    System.out.println("Welcome to EscapeRoom!");
+    System.out.println("Get to the other side of the room, avoiding walls and invisible traps,");
+    System.out.println("pick up all the prizes.\n");
+    
+    GameGUI game = new GameGUI();
+    game.createBoard();
+
+    // size of move
+    int m = 60; 
+    // individual player moves
+    int px = 0;
+    int py = 0; 
+    
+    int score = 0;
+
+    Scanner in = new Scanner(System.in);
+    String[] validCommands = { "right", "left", "up", "down", "r", "l", "u", "d",
+    "jump", "jr", "jumpleft", "jl", "jumpup", "ju", "jumpdown", "jd",
+    "pickup", "p", "quit", "q", "replay", "help", "?","Spring Trap Up","Spring Trap Down","Spring Trap Left","Spring Trap Right","spu","spd","spl","spr"};
+  
+    // set up game
+    boolean play = true;
+    while (play)
+    {
+     /* TODO: get all the commands working */
+
+     // Get User Input
+     System.out.print("What do you want to do? \n ---> ");
+     String action = UserInput.getValidInput(validCommands);
+
+	   // Right movement
+     if ( action .equals("right")  || action .equals("r")){
+      game.movePlayer(m,0);
+      px += m;
+      game.isTrap(px, py);
+
+     }
+
+     // Left movement
+     if ( action .equals("left")  || action .equals("l")){
+      game.movePlayer(-m,0);
+      px -= m;
+      game.isTrap(px, py);
+
+     }
+
+     // Up movement
+     if ( action .equals("up")  || action .equals("u")){
+      game.movePlayer(0,-m);
+      py -= m;
+      game.isTrap(px, py);
+
+     }
+
+      // Down movement
+     if ( action .equals("down")  || action .equals("d")){
+      game.movePlayer(0,m);
+      py += m;
+      game.isTrap(px, py);
+
+     }
+
+     if (action.equals("jump") || action.equals("jump right")||action .equals("jr")|| action .equals("jump")){
+      game.movePlayer(2*m,0 );
+      px += 2*m;
+      game.isTrap(px, py);
+
+     }
+     if(action.equals("jump left")|| action.equals("jl") || action.equals("jumpleft")){
+      game.movePlayer(-2*m,0);
+      px -= 2*m;
+      game.isTrap(px, py);
+
+     }
+      if(action.equals("jump up")|| action.equals("ju") || action.equals("jumpup")){
+        game.movePlayer(0,-2*m);
+        py -= 2*m;
+      game.isTrap(px, py);
+// If player wants to spring a trap
+      }
+      if(action.equals("jump down")|| action.equals("jd") || action.equals("jumpdown")){
+        game.movePlayer(0,2*m);
+        py += 2*m;
+      game.isTrap(px, py);
+
+      if(action.equals("Spring Trap Up") || action.equals("spu")){
+        game.springTrap(0,+m);}
+      if(action.equals("Spring Trap Down") || action.equals("spd")){
+        game.springTrap(0,-m);}
+      if(action.equals("Spring Trap Left") || action.equals("spl")){
+        game.springTrap(-m,0);}
+      if(action.equals("Spring Trap Right") || action.equals("spr")){
+        game.springTrap(m,0);}
+      
+
+      }
+      if(action.equals("pickup") || action.equals("p")){
+        score += game.pickupPrize();
+        System.out.println("\nYour Score now equals: " + score);
+        
+      } 
+      if(action.equals("help") || action.equals("?")){
+        System.out.println("\n\nHere are the valid commands:");
+        System.out.println("right or r: move right");
+        System.out.println("left or l: move left");
+        System.out.println("up or u: move up");
+        System.out.println("down or d: move down");
+        System.out.println("jump right or jr: jump right over one space");
+        System.out.println("jump left or jl: jump left over one space");
+        System.out.println("jump up or ju: jump up over one space");
+        System.out.println("jump down or jd: jump down over one space");
+        System.out.println("pickup or p: pick up a prize if there is one");
+        System.out.println("quit or q: end the game immediately");
+        System.out.println("replay: reset the game to play again");
+        System.out.println("Spring Trap Up or spu: spring a trap above you");
+        System.out.println("Spring Trap Down or spd: spring a trap below you"); 
+        System.out.println("Spring Trap Left or spl: spring a trap to the left of you");
+        System.out.println("Spring Trap Right or spr: spring a trap to the right of you");
+        System.out.println("help or ?: show this help message\n\n");
+        
+      }
+      if(action.equals("quit") || action.equals("q")){
+        play = false;
+      }
+      if(action.equals("replay")){
+        game.replay();
+        System.out.println("\nYour Score: " + score);
+        System.out.println("Your Steps: " + game.getSteps());
+        System.out.println("\nLets Restart!");
+        System.out.println("\n--Score is reset--");
+        score = 0;       
+      }
+      // If player contacts traps
+      
+  
+    }
+  
+
+  
+
+    score += game.endGame();
+
+    System.out.println("\nYour Score:" + score);
+    System.out.println("You Took " + game.getSteps()+ " Steps!");
+     if(game.getSteps()>= 23){
+      System.out.println("That was a bunch of steps you're very athletic!");
+      } else {
+      System.out.println("That was very few steps, quitter!");
+    }
+    System.out.println("Thanks for playing!"); 
+    }
+  }
+
+
+        
