@@ -59,7 +59,7 @@ public class EscapeRoom
     Scanner in = new Scanner(System.in);
     String[] validCommands = { "right", "left", "up", "down", "r", "l", "u", "d",
     "jump", "jr", "jumpleft", "jl", "jumpup", "ju", "jumpdown", "jd",
-    "pickup", "p", "quit", "q", "replay", "help", "?"};
+    "pickup", "p", "quit", "q", "replay", "help", "?","Spring Trap Up","Spring Trap Down","Spring Trap Left","Spring Trap Right","spu","spd","spl","spr"};
   
     // set up game
     boolean play = true;
@@ -74,36 +74,72 @@ public class EscapeRoom
 	   // Right movement
      if ( action .equals("right")  || action .equals("r")){
       game.movePlayer(m,0);
+      px += m;
+      game.isTrap(px, py);
+
      }
 
      // Left movement
      if ( action .equals("left")  || action .equals("l")){
       game.movePlayer(-m,0);
+      px -= m;
+      game.isTrap(px, py);
+
      }
 
      // Up movement
      if ( action .equals("up")  || action .equals("u")){
       game.movePlayer(0,-m);
+      py -= m;
+      game.isTrap(px, py);
+
      }
 
       // Down movement
      if ( action .equals("down")  || action .equals("d")){
       game.movePlayer(0,m);
+      py += m;
+      game.isTrap(px, py);
+
      }
 
      if (action.equals("jump") || action.equals("jump right")||action .equals("jr")|| action .equals("jump")){
       game.movePlayer(2*m,0 );
+      px += 2*m;
+      game.isTrap(px, py);
+
      }
      if(action.equals("jump left")|| action.equals("jl") || action.equals("jumpleft")){
       game.movePlayer(-2*m,0);
+      px -= 2*m;
+      game.isTrap(px, py);
+
      }
       if(action.equals("jump up")|| action.equals("ju") || action.equals("jumpup")){
         game.movePlayer(0,-2*m);
+        py -= 2*m;
+      game.isTrap(px, py);
+// If player wants to spring a trap
       }
       if(action.equals("jump down")|| action.equals("jd") || action.equals("jumpdown")){
         game.movePlayer(0,2*m);
+        py += 2*m;
+      game.isTrap(px, py);
+
+      if(action.equals("Spring Trap Up") || action.equals("spu")){
+        game.springTrap(0,+m);}
+      if(action.equals("Spring Trap Down") || action.equals("spd")){
+        game.springTrap(0,-m);}
+      if(action.equals("Spring Trap Left") || action.equals("spl")){
+        game.springTrap(-m,0);}
+      if(action.equals("Spring Trap Right") || action.equals("spr")){
+        game.springTrap(m,0);}
+      
+
       }
       if(action.equals("pickup") || action.equals("p")){
+        score += game.pickupPrize();
+        System.out.println("\nYour Score now equals: " + score);
         
       } 
       if(action.equals("help") || action.equals("?")){
@@ -119,7 +155,12 @@ public class EscapeRoom
         System.out.println("pickup or p: pick up a prize if there is one");
         System.out.println("quit or q: end the game immediately");
         System.out.println("replay: reset the game to play again");
+        System.out.println("Spring Trap Up or spu: spring a trap above you");
+        System.out.println("Spring Trap Down or spd: spring a trap below you"); 
+        System.out.println("Spring Trap Left or spl: spring a trap to the left of you");
+        System.out.println("Spring Trap Right or spr: spring a trap to the right of you");
         System.out.println("help or ?: show this help message\n\n");
+        
       }
       if(action.equals("quit") || action.equals("q")){
         play = false;
@@ -132,6 +173,8 @@ public class EscapeRoom
         System.out.println("\n--Score is reset--");
         score = 0;       
       }
+      // If player contacts traps
+      
   
     }
   
